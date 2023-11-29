@@ -23,4 +23,16 @@ contract UploadDocs {
 
         documentations.push(documentation);
     }
+
+    function readAllDocumentations() public view returns (Documentation[] memory) {
+        return documentations;
+    }
+
+    function readDocumentation(uint256 _index) public view returns (Documentation memory) {
+        return documentations[_index];
+    }
+
+    // function readDocumentationsPaginated(uint256 _start, uint256 _offset) public view returns (Documentation[] memory) {
+    //     return documentations[_start: _start + _offset];
+    // }
 }
