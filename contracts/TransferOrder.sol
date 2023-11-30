@@ -6,8 +6,10 @@ contract TransferOrder {
 
     struct SpecialTransferRequest {
         string receiver;
+        address receiverAddress;
         string parlamentRequest;
         string eligibleDocument;
+        uint256 priority;
         uint256 value;
         string effectedTransaction;
     }
@@ -32,19 +34,28 @@ contract TransferOrder {
         balance = _balance;
     }
 
-    function specialTransfer(uint256 _amount, address _receiver) public {
+    function specialTransfer(uint256 _amount, uint256 _requestIndex) public {
         require(_amount <= balance);
-        token.transferFrom(treasuryPublicKey, _receiver, _amount);
+        require(specialTransferRequests[_requestIndex].priority == 1);
+
+        token.transferFrom(
+            treasuryPublicKey, 
+            specialTransferRequests[_requestIndex].receiverAddress, 
+            _amount
+        );
     }
 
-    function addSpecialTransferRequest(string memory _receiver, string memory _parlamentRequest, string memory _eligibleDocument, uint256 _value) public {
+    function addSpecialTransferRequest(string memory _receiver, string memory _parlamentRequest, 
+        string memory _eligibleDocument, uint256 _value, uint256 _priority, address _receiverAddress) public {
         specialTransferRequests.push(
             SpecialTransferRequest({
                 eligibleDocument: _eligibleDocument,
                 receiver: _receiver,
                 parlamentRequest: _parlamentRequest,
                 value: _value,
-                effectedTransaction: ""
+                priority: _priority,
+                effectedTransaction: "",
+                receiverAddress: _receiverAddress
             })
         );
     }
