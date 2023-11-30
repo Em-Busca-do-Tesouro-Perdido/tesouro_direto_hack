@@ -15,13 +15,15 @@ contract UploadDocs {
     Documentation[] documentations;
 
     function addDocumentation(uint256 _amount, string memory _cnae, string memory _docUrl) public {
-        Documentation memory documentation = Documentation({
-            amount: _amount,
-            cnae: _cnae,
-            docUrl: _docUrl
-        });
-
-        documentations.push(documentation);
+        documentations.push(
+            Documentation(
+                {
+                    amount: _amount,
+                    cnae: _cnae,
+                    docUrl: _docUrl
+                }
+            )
+        );
     }
 
     function readAllDocumentations() public view returns (Documentation[] memory) {
