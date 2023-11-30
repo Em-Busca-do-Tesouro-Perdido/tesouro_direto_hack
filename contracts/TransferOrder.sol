@@ -63,4 +63,12 @@ contract TransferOrder {
     function updateEffectedTransaction(uint256 _index, string memory _effectedTransaction) public {
         specialTransferRequests[_index].effectedTransaction = _effectedTransaction;
     }
+
+    function readAllRequests() public view returns (SpecialTransferRequest[] memory) {
+        return specialTransferRequests;
+    }
+
+    function readRequest(uint256 _index) public view returns (SpecialTransferRequest memory) {
+        return specialTransferRequests[_index];
+    }
 }
