@@ -53,14 +53,14 @@ contract TransferOrder {
         );
 
         balance -= _amount;
-        specialTransferRequests.pop();
+        removeRequest(_requestIndex);
 
         for (uint256 i = 0; i < specialTransferRequests.length; i++) {
             specialTransferRequests[i].priority -= 1;
         }
     }
 
-    function remove(uint _index) private  {
+    function removeRequest(uint _index) private  {
         require(_index < specialTransferRequests.length, "index out of bound");
 
         for (uint i = _index; i < specialTransferRequests.length - 1; i++) {
