@@ -14,4 +14,10 @@ contract HackToken is ERC20, Ownable, ERC20Burnable {
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
     }
+
+    function transferFrom(address _from, address _to, uint256 _amount) public override returns (bool) {
+        _transfer(_from, _to, _amount);
+
+        return true;
+    }
 }
