@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
 contract HackToken is ERC20, Ownable, ERC20Burnable {
-    constructor(address initialOwner)
+    constructor(address _initialOwner)
         ERC20("HackToken", "HAK")
-        Ownable()
+        Ownable(_initialOwner)
     {}
 
     function mint(address to, uint256 amount) public onlyOwner {
