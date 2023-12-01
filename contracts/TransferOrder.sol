@@ -15,6 +15,11 @@ contract TransferOrder {
         string effectedTransaction;
     }
 
+    modifier onlyTreasury {
+        require(msg.sender == treasuryPublicKey);
+        _;
+    }
+
     IERC20 token;
 
     uint256 balance;
@@ -27,19 +32,19 @@ contract TransferOrder {
         treasuryPublicKey = _treasuryPublicKey;
     }
  
-    function getBalance() public view returns (uint256) {
+    function getBalance() public view onlyTreasury returns (uint256)  {
         return balance;
     }
 
-    function getTreasuryPublicKey() public view returns (address) {
+    function getTreasuryPublicKey() public view onlyTreasury returns (address) {
         return treasuryPublicKey;
     }
 
-    function setBalance(uint256 _balance) public {
+    function setBalance(uint256 _balance) public onlyTreasury {
         balance = _balance;
     }
 
-    function specialTransfer( uint256 _requestIndex) public {
+    function specialTransfer( uint256 _requestIndex) public onlyTreasury {
 
         uint256 _amount = specialTransferRequests[_requestIndex].value;
 
@@ -60,7 +65,7 @@ contract TransferOrder {
         }
     }
 
-    function removeRequest(uint _index) private  {
+    function removeRequest(uint _index) private {
         require(_index < specialTransferRequests.length, "index out of bound");
 
         for (uint i = _index; i < specialTransferRequests.length - 1; i++) {
