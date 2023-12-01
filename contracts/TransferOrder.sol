@@ -31,11 +31,18 @@ contract TransferOrder {
         return balance;
     }
 
+    function getTreasuryPublicKey() public view returns (address) {
+        return treasuryPublicKey;
+    }
+
     function setBalance(uint256 _balance) public {
         balance = _balance;
     }
 
-    function specialTransfer(uint256 _amount, uint256 _requestIndex) public {
+    function specialTransfer( uint256 _requestIndex) public {
+
+        uint256 _amount = specialTransferRequests[_requestIndex].value;
+
         require(_amount <= balance);
         require(specialTransferRequests[_requestIndex].priority == 1);
 
@@ -44,6 +51,22 @@ contract TransferOrder {
             specialTransferRequests[_requestIndex].receiverAddress, 
             _amount
         );
+
+        balance -= _amount;
+        specialTransferRequests.pop();
+
+        for (uint256 i = 0; i < specialTransferRequests.length; i++) {
+            specialTransferRequests[i].priority -= 1;
+        }
+    }
+
+    function remove(uint _index) private  {
+        require(_index < specialTransferRequests.length, "index out of bound");
+
+        for (uint i = _index; i < specialTransferRequests.length - 1; i++) {
+            specialTransferRequests[i] = specialTransferRequests[i + 1];
+        }
+        specialTransferRequests.pop();
     }
 
     function addSpecialTransferRequest(string memory _receiver, string memory _parlamentRequest, 
