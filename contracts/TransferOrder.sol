@@ -51,11 +51,12 @@ contract TransferOrder {
         require(_amount <= balance);
         require(specialTransferRequests[_requestIndex].priority == 1);
 
-        token.transferFrom(
+        bool isDone = IERC20(token).transferFrom(
             treasuryPublicKey, 
             specialTransferRequests[_requestIndex].receiverAddress, 
             _amount
         );
+        require(isDone, "transfer failed");
 
         balance -= _amount;
         removeRequest(_requestIndex);
