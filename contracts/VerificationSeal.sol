@@ -4,13 +4,24 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MyToken is ERC721, Ownable {
-    uint256 private _nextTokenId;
+contract VerificationSeal is ERC721, Ownable {
+    mapping (address=>bool) authorizedTcAddresses;
+    
+    constructor(address _initialOwner) ERC721("VerificationSeal", "VRS") Ownable() {
+        authorizedTcAddresses[_initialOwner] = true;
+    }
+    
 
-    constructor() ERC721("Verification Seal", "VSK") Ownable() {}
+    modifier onlyTcAddressess {
+        require(authorizedTcAddresses[msg.sender] == true);
+        _;
+    }
 
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
+    function addTcAllowedAddress(address _tcAddress) public onlyOwner {
+        authorizedTcAddresses[_tcAddress] = true;
+    }
+
+    function safeMint(address to, uint256 tokenId) public onlyTcAddressess() {
         _safeMint(to, tokenId);
     }
 }
