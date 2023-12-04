@@ -14,7 +14,7 @@ async function main() {
     
     const balance = await erc20Contract.balanceOf(treasuryAddress ?? "");
 
-    console.log(`Balance of treasury account ${treasuryAddress} after mint operation: ${balance}`)
+    console.log(`Balance of treasury account ${treasuryAddress} after mint operation: ${balance}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
