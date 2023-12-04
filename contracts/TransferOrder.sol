@@ -48,8 +48,12 @@ contract TransferOrder {
 
         uint256 _amount = specialTransferRequests[_requestIndex].value;
 
-        require(_amount <= balance);
-        require(specialTransferRequests[_requestIndex].priority == 1);
+        require(_amount <= balance, "Error: treasury does not have enough funds.");
+        require(specialTransferRequests[_requestIndex].priority == 1, "Error: transfer has not highest priority.");
+        require(
+            keccak256(abi.encodePacked(specialTransferRequests[_requestIndex].effectedTransaction)) 
+            == keccak256(abi.encodePacked("PENDING")), 
+                "Error: transfer is already in process");
 
         bool isDone = IERC20(token).transferFrom(
             treasuryPublicKey, 
@@ -59,7 +63,6 @@ contract TransferOrder {
         require(isDone, "transfer failed");
 
         balance -= _amount;
-        removeRequest(_requestIndex);
 
         for (uint256 i = 0; i < specialTransferRequests.length; i++) {
             specialTransferRequests[i].priority -= 1;
@@ -84,7 +87,7 @@ contract TransferOrder {
                 parlamentRequest: _parlamentRequest,
                 value: _value,
                 priority: _priority,
-                effectedTransaction: "",
+                effectedTransaction: "PENDING",
                 receiverAddress: _receiverAddress
             })
         );
