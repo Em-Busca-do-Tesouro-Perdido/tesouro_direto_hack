@@ -25,7 +25,7 @@ contract VerificationSeal is ERC721, Ownable {
     }
 
     function safeMint(address to) public onlyTcAddressess() {
-        _nextTokenId = _nextTokenId++;
-        _safeMint(to, _nextTokenId);
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
     }
 }

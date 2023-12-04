@@ -4,17 +4,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config: HardhatUserConfig = {
-  solidity: {
-    "compilers": [
-      {
-        "version": "0.8.19"
-      }
-    ]
-  },
+  solidity: "0.8.20",
   defaultNetwork: "sepolia",
   networks: {
     sepolia: {
-      url: process.env.SEPOLIA_RPC_ENDPOINT,
+      url: process.env.NETWORK_RPC_ENDPOINT,
       accounts: [ process.env.PRIVATE_KEY ?? ""]
     }
   }
