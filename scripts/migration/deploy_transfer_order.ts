@@ -3,12 +3,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const { ERC20_INITIAL_SUPPLY, ERC20_CONTRACT_ADDRESS, TREASURY_PUBLIC_ADDRESS } = process.env;
+
 async function main() {
   const currentTimestampInSeconds = Math.round(Date.now() / 1000);
   const unlockTime = currentTimestampInSeconds + 60;
 
   const transferOrder = await ethers.deployContract("TransferOrder", [
-    10000000000000, process.env.ERC20_CONTRACT_ADDRESS, process.env.TREASURY_PUBLIC_ADDRESS
+    ERC20_INITIAL_SUPPLY, ERC20_CONTRACT_ADDRESS, TREASURY_PUBLIC_ADDRESS
   ]);
 
   await transferOrder.waitForDeployment();

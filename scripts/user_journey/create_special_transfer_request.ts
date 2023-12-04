@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const { TRANSFER_ORDER_CONTRACT_ADDRESS, EXAMPLE1_RECEIVER_ADDRESS } = process.env;
+
 async function main() {
-    const transferOrderContract = await ethers.getContractAt("TransferOrder", process.env.TRANSFER_ORDER_CONTRACT_ADDRESS ?? "");
+    const transferOrderContract = await ethers.getContractAt("TransferOrder", TRANSFER_ORDER_CONTRACT_ADDRESS ?? "");
 
     const response = await transferOrderContract.addSpecialTransferRequest(
         "Guará",
@@ -12,7 +14,7 @@ async function main() {
         "12345678901",
         3500,
         3,
-        process.env.EXAMPLE1_RECEIVER_ADDRESS ?? ""
+        EXAMPLE1_RECEIVER_ADDRESS ?? ""
     );
     
     await response.wait();
