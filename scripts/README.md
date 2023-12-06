@@ -34,10 +34,10 @@ Preencha a variável de ambiente ACCOUNTABILITIES_CONTRACT_ADDRESS com o hash do
 
 ## Geração de oferta inicial de *tokens* ERC-20 para a carteira do Tesouro Nacional
 
-- Execute o script **migration/mint_erc20.ts** rodando o seguinte comando:
+- Execute o script **user_journey/mint_erc20.ts** rodando o seguinte comando:
 
 ```shell
-npx hardhat run migration/mint_erc20.ts
+npx hardhat run user_journey/mint_erc20.ts
 ```
 
 ## *Deploy* de contrato de ordens de transferências especiais:
@@ -52,19 +52,42 @@ Preencha a variável de ambiente TRANSFER_ORDER_CONTRACT_ADDRESS com o hash do c
 
 ## Criação de solicitação de transferência especial (pode ser invocado quantas vezes se desejar):
 
-- Execute o script **migration/create_special_transfer_request.ts** rodando o seguinte comando:
+- Execute o script **user_journey/create_special_transfer_request.ts** rodando o seguinte comando:
 
 ```shell
-npx hardhat run migration/create_special_transfer_request.ts
+npx hardhat run user_journey/create_special_transfer_request.ts
 ```
 
 ## Execução de transferência especial:
 
-- Execute o script **migration/execute_special_transfer.ts** rodando o seguinte comando:
+- Execute o script **user_journey/execute_special_transfer.ts** rodando o seguinte comando:
 
 ```shell
-npx hardhat run migration/execute_special_transfer.ts
+npx hardhat run user_journey/execute_special_transfer.ts
 ```
 
+## Criação de prestação de contas (pode-se acionar quantas vezes for necessário):
+
+- Execute o script **user_journey/create_accountability.ts** rodando o seguinte comando:
+
+```shell
+npx hardhat run user_journey/create_accountability.ts
+```
+
+## Geração de selo de certificação:
+
+- Execute o script **user_journey/mint_erc721_seal.ts** rodando o seguinte comando:
+
+```shell
+npx hardhat run user_journey/mint_erc721_seal.ts
+```
+
+## Atualização de requisição com *hash* da transação de transferência:
+
+- Execute o script **user_journey/change_special_transfer_request_status.ts** rodando o seguinte comando:
+
+```shell
+npx hardhat run user_journey/change_special_transfer_request_status.ts
+```
 
 
