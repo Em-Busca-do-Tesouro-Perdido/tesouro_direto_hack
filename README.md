@@ -4,6 +4,8 @@ Este projeto contém os contratos inteligentes que implementam a lógica de SIST
 
 Para iniciar, crie um arquivo de ambiente (**.env**) utilizando **dotenv.template** como modelo. NÃO use os valores de variáveis presentes nele: ele será modificado à medida que se vai seguindo a jornada de execução explanada em **scripts/README.md**. De início, apenas configure as variáveis que representam endereços públicos de carteiras EVM.
 
+Na raiz deste repositório, também consta o arquivo da apresentação de *slides* utilizada no *pitch* do desafio, salvo em formato PDF.
+
 ## Referências para artefatos da proposta
 
 Seguem *links* de artefatos utilizados na proposta da equipe:
